@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 def save():
     with open('1.txt', 'a') as file:
-        file.write(f'{comp["title"]} -> Price: {comp["price"]}\n')
+        file.write(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]}\n')
 def parse():
      URL = 'https://www.olx.kz/elektronika/kompyutery-i-komplektuyuschie/'
      HEADERS = {
