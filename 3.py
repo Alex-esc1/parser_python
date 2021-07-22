@@ -3,7 +3,7 @@ import requests
 
 
 def save():
-    with open('1.txt', 'a') as file:
+    with open('1.txt', 'a', encoding="utf-8") as file:
         file.write(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]}\n')
 
 
@@ -37,6 +37,6 @@ def parse(line):
             save()
 
 
-with open("2.txt", "r") as file1:
+with open("2.txt", "r", encoding="utf-8") as file1:
     for line in file1:
         parse (line)
