@@ -14,11 +14,12 @@ def parse(line):
     }
     response = requests.get(URL, headers = HEADERS)
     soup = BeautifulSoup(response.content, 'html.parser')
-    items = soup.findAll('div', class_ = 'offer-wrapper' )
+    # items = soup.findAll('div', class_ = 'offer-wrapper' )
+    items = soup.findAll('body')
     comps = []
     
     for item in items:
-        img = item.find('img', class_ = 'fleft')
+        img = item.find('img', class_ = 'cs-product-image__img')
 
         imgSrc = ''
         try:
@@ -27,8 +28,8 @@ def parse(line):
             pass
 
         comps.append({
-            'title': item.find('h3', class_ = 'lheight22 margintop5').get_text(strip = True),
-            'price': item.find('p', class_ = 'price').get_text(strip = True),
+            'title': item.find(attrs={"data-qaid": 'product_name'}).get_text(strip = True),
+            'price': item.find('p', class_ = 'b-product-cost__price').get_text(strip = True),
             'img': imgSrc
         })
         global comp
