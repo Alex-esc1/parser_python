@@ -4,7 +4,7 @@ import requests
 
 def save():
     with open('1.txt', 'a', encoding="utf-8") as file:
-        file.write(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]}\n')
+        file.write(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]} -> description: {comp["description"]}\n')
 
 
 def parse(line):
@@ -21,20 +21,37 @@ def parse(line):
     for item in items:
         img = item.find('img', class_ = 'cs-product-image__img')
 
+
+        NameS = ''
+        try:
+            NameS = item.find(attrs={"data-qaid": 'product_name'}).get_text(strip = True)
+        except:
+            pass
         imgSrc = ''
         try:
             imgSrc = img.get('src')
         except:
             pass
+        priceS = ''
+        try:
+            priceS = item.find('p', class_ = 'b-product-cost__price').get_text(strip = True)
+        except:
+            pass
+        descriptionS = ''
+        try:
+            descriptionS = item.find('div', class_ = 'b-user-content').get_text(strip = True)
+        except:
+            pass
 
         comps.append({
-            'title': item.find(attrs={"data-qaid": 'product_name'}).get_text(strip = True),
-            'price': item.find('p', class_ = 'b-product-cost__price').get_text(strip = True),
-            'img': imgSrc
+            'title': NameS,
+            'price': priceS,
+            'img': imgSrc,
+            'description': descriptionS
         })
         global comp
         for comp in comps:
-            print(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]}')
+            print(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]} -> description: {comp["description"]}')
             save()
 
 
