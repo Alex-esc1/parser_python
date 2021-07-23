@@ -37,6 +37,6 @@ def parse(line):
             save()
 
 
-with open("2.txt", "r", encoding="utf-8") as file1:
+with open("3.txt", "r", encoding="utf-8") as file1:
     for line in file1:
         parse (line)
