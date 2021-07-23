@@ -14,8 +14,8 @@ def parse(line):
     }
     response = requests.get(URL, headers = HEADERS)
     soup = BeautifulSoup(response.content, 'html.parser')
-    # items = soup.findAll('div', class_ = 'offer-wrapper' )
-    items = soup.findAll('body')
+    # поиск в определнном блоке на странице items = soup.findAll('div', class_ = 'offer-wrapper' )
+    items = soup.findAll('body') # поиск по всей странице
     comps = []
     
     for item in items:
