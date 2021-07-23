@@ -14,7 +14,8 @@ def parse(line):
     }
     response = requests.get(URL, headers = HEADERS)
     soup = BeautifulSoup(response.content, 'html.parser')
-    items = soup.findAll('div', class_ = 'offer-wrapper' )
+    # поиск в определнном блоке на странице items = soup.findAll('div', class_ = 'offer-wrapper' )
+    items = soup.findAll('body') # поиск по всей странице
     comps = []
     
     for item in items:
@@ -26,11 +27,31 @@ def parse(line):
         except:
             pass
 
+        NameS = ''
+        try:
+            NameS = item.find('h3', class_ = 'lheight22 margintop5').get_text(strip = True)
+        except:
+            pass
+
+        priceS = ''
+        try:
+            priceS = item.find('p', class_ = 'price').get_text(strip = True)
+        except:
+            pass
+
+        descriptionS = ''
+        try:
+            descriptionS = item.find('p', class_ = 'price').get_text(strip = True)
+        except:
+            pass
+
         comps.append({
-            'title': item.find('h3', class_ = 'lheight22 margintop5').get_text(strip = True),
-            'price': item.find('p', class_ = 'price').get_text(strip = True),
-            'img': imgSrc
+            'title': NameS,
+            'price': priceS,
+            'img': imgSrc,
+            'description': descriptionS
         })
+
         global comp
         for comp in comps:
             print(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]}')
