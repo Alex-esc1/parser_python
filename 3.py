@@ -6,6 +6,23 @@ def save():
     with open('1.txt', 'a', encoding="utf-8") as file:
         file.write(f'{comp["title"]} -> description: {comp["description"]} -> Price: {comp["price"]} -> img: {comp["img"]}\n')
 
+def get_text(item, name=None, attrs={}, recursive=True, text=None, **kwargs):
+    text = ''
+    try:
+        text = item.find(name, attrs, recursive, text, **kwargs).get_text(strip = True)
+    except:
+        pass
+
+    return text
+
+def get_image_src(item, name=None, attrs={}, recursive=True, text=None, **kwargs):
+    text = ''
+    try:
+        text = item.find(name, attrs, recursive, text, **kwargs).get('src')
+    except:
+        pass
+
+    return text
 
 def parse(line):
     URL = line.strip()
@@ -19,29 +36,10 @@ def parse(line):
     comps = []
     
     for item in items:
-        img = item.find('img', class_ = 'cs-product-image__img')
-
-
-        NameS = ''
-        try:
-            NameS = item.find(attrs={"data-qaid": 'product_name'}).get_text(strip = True)
-        except:
-            pass
-        imgSrc = ''
-        try:
-            imgSrc = img.get('src')
-        except:
-            pass
-        priceS = ''
-        try:
-            priceS = item.find('p', class_ = 'b-product-cost__price').get_text(strip = True)
-        except:
-            pass
-        descriptionS = ''
-        try:
-            descriptionS = item.find('div', class_ = 'b-user-content').get_text(strip = True)
-        except:
-            pass
+        NameS = get_text(item, attrs={"data-qaid": 'product_name'})
+        priceS = get_text(item, 'p', class_ = 'b-product-cost__price')
+        descriptionS = get_text(item, 'div', class_ = 'b-user-content')
+        imgSrc = get_image_src(item, 'img', class_ = 'cs-product-image__img')
 
         comps.append({
             'title': NameS,
@@ -49,6 +47,7 @@ def parse(line):
             'img': imgSrc,
             'description': descriptionS
         })
+
         global comp
         for comp in comps:
             print(f'{comp["title"]} -> description: {comp["description"]} -> Price: {comp["price"]} -> img: {comp["img"]}')
