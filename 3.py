@@ -4,7 +4,7 @@ import requests
 
 def save():
     with open('1.txt', 'a', encoding="utf-8") as file:
-        file.write(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]} -> description: {comp["description"]}\n')
+        file.write(f'{comp["title"]} -> description: {comp["description"]} -> Price: {comp["price"]} -> img: {comp["img"]}\n')
 
 
 def parse(line):
@@ -51,7 +51,7 @@ def parse(line):
         })
         global comp
         for comp in comps:
-            print(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]} -> description: {comp["description"]}')
+            print(f'{comp["title"]} -> description: {comp["description"]} -> Price: {comp["price"]} -> img: {comp["img"]}')
             save()
 
 
