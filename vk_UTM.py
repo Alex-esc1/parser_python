@@ -41,7 +41,7 @@ with open("1.txt", "r", encoding="utf-8") as file:
     for line in file:
       URL = line.strip()
       driver.get(URL)
-      sleep(10)
+      sleep(5)
       e = driver.find_element_by_id("post_field")
       e.clear()
       act = ActionChains(driver)
@@ -56,6 +56,7 @@ with open("1.txt", "r", encoding="utf-8") as file:
         act = ActionChains(driver)
         act.send_keys(Keys.BACKSPACE).perform()
       act.send_keys('http://minus50.by/category/stroitelnye-materialy?utm_source=vk').perform()
+      sleep(3)
       driver.find_element_by_id("send_post").click()
       sleep(3)
 
