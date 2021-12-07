@@ -8,6 +8,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
 from time import sleep
+from random import randint
 import requests
 
 ##Чтение ссылки из текстового файла
@@ -41,7 +42,7 @@ with open("1.txt", "r", encoding="utf-8") as file:
     for line in file:
       URL = line.strip()
       driver.get(URL)
-      sleep(5)
+      sleep(randint(3,5))
       e = driver.find_element_by_id("post_field")
       e.clear()
       act = ActionChains(driver)
