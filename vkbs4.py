@@ -11,6 +11,14 @@ from time import sleep
 from random import randint
 import requests
 from bs4 import BeautifulSoup
+import os
+
+l = os.stat("product.txt").st_size
+if l == 0:
+    print('Файл пуст?')
+    exit()
+else:
+    print('Файл не пуст!')
 
 ##Чтение ссылки из текстового файла (товар)
 def get_text(parent, name=None, index=0, attrs={}, recursive=True, text=None, **kwargs):
