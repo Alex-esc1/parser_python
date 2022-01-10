@@ -76,7 +76,7 @@ print (f'{b}\n{descriptionS}')
 ##Чтение скидки в % из текстового файла
 c = ('BYN'.join(priceS.split('BYN')[:-1]))
 d = ('BYN'.join(descriptionS.split('BYN')[:-1]))
-n = (float(c) / float(d)) * 100
+n = 1 - (float(c) / float(d)) * 100
 u = str(round(n,1))
 p = u + '%'
 print(p)
