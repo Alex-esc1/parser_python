@@ -23,5 +23,10 @@ def parse():
         for comp in comps:
             print(f'{comp["title"]} -> Price: {comp["price"]} -> img: {comp["img"]}')
             save()
+
+
+234325435
+
+
 parse ()
 
